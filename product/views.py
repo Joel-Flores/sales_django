@@ -12,20 +12,20 @@ from .forms import ProductNameForm
 class ProductCreate(CreateView):
     model = ProductName
     form_class = ProductNameForm
-    template_name = 'sale/product_form.html'
-    success_url = reverse_lazy('sale:read')
+    template_name = 'product/product_form.html'
+    success_url = reverse_lazy('product:read')
     
 class ProductRead(ListView):
     model = ProductName
-    template_name = 'sale/product_read.html'
+    template_name = 'product/product_read.html'
     
 class ProductUpdate(UpdateView):
     model = ProductName
     form_class = ProductNameForm
-    template_name = 'sale/product_form.html'
-    success_url = reverse_lazy('sale:read')
+    template_name = 'product/product_form.html'
+    success_url = reverse_lazy('product:read')
 
 class ProductDelete(DeleteView):
     model = ProductName
-    template_name = 'sale/product_delete.html'
-    success_url = reverse_lazy('sale:read')
+    template_name = 'product/product_delete.html'
+    success_url = reverse_lazy('product:read')
