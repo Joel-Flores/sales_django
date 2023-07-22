@@ -3,6 +3,8 @@
 <br>
 <a href="{% url 'product:product_read' %}">table products</a>
 <br>
-<a href="{% url 'sales:add_food' %}">add_food</a>
+<a href="{% url 'sales:add_food' 1 %}">add_food</a>
 <br>
-<a href="{% url 'sales:add_soda' %}">add_soda</a>
+<a href="{% url 'sales:add_soda' 2%}">add_soda</a>
+<br>
+<a href="{% url 'receipts:pay' %}"> view_order</a>

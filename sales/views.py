@@ -8,9 +8,10 @@ from product.helper import HelperProduct
 from .forms import form_add_cart_to_products
 
 # Create your views here.
-class AddCartFood(View):
+class AddCart(View):
     def get(self, request, *args, **kwarg):
-        products = HelperProduct.get_products_filter_type(1)
+        id = self.kwargs['pk']
+        products = HelperProduct.get_products_filter_type(id)
         form = form_add_cart_to_products(products)
         context = {
             'products' : products,
@@ -19,36 +20,38 @@ class AddCartFood(View):
         return render(request, 'sales/addtocart.html', context, )
     
     def post(self, request, *args, **kwarg):
-        products = HelperProduct.get_products_filter_type(1)
+        id = self.kwargs['pk']
+        products = HelperProduct.get_products_filter_type(id)
         form = form_add_cart_to_products(products,request.POST)
-        if form.is_valid():
-            orders = HelperApp.get_order(request)
-            for product_name, count in form.data.items():
-                if count is None or count == 0:
-                    continue
+        if not form.is_valid():
+            context = {
+                'products' : products,
+                'form' : form
+            }
+            return render(request, 'sales/addtocart.html', context, )
+        
+        orders = HelperApp.get_order(request)
+        for product_name, count in form.data.items():
+            if count is None or count == 0:
+                continue
+        
+            product_data = HelperSale.search_in_list(product_name, products)
+            if product_data is None:
+                continue
             
-                product_data = HelperSale.search_in_list(product_name, products)
-                if product_data is None:
-                    continue
+            order = HelperSale.search_in_list(product_name, orders)
+            if order is None:
+                # Si no existe, agregamos un nuevo diccionario de orden
+                orders.append(HelperApp.new_order(product_data, count))
                 
-                order = HelperSale.search_in_list(product_name, orders)
-                if order is None:
-                    # Si no existe, agregamos un nuevo diccionario de orden
-                    orders.append(HelperApp.new_order(product_data, count))
-                    
-                else:
-                    # Si la orden ya existe, sumamos el contador
-                    HelperApp.update_order(order, product_data, count)
-                    
-            HelperApp.update_order_in_session(request, orders)
-            return redirect('home')
-        context = {
-            'products' : products,
-            'form' : form
-        }
-        return render(request, 'sales/addtocart.html', context, )
+            else:
+                # Si la orden ya existe, sumamos el contador
+                HelperApp.update_order(order, product_data, count)
+                
+        HelperApp.update_order_in_session(request, orders)
+        return redirect('home')
 
-class AddCartSoda(View):
+''' class AddCartSoda(View):
     def get(self, request, *args, **kwarg):
         products = HelperProduct.get_products_filter_type(2)
         form = form_add_cart_to_products(products)
@@ -86,19 +89,19 @@ class AddCartSoda(View):
             'products' : products,
             'form' : form
         }
-        return render(request, 'sales/addtocart.html', context, )
+        return render(request, 'sales/addtocart.html', context, ) '''
 
 class DeteleOrder(View):
     def get(self, request, *args, **kwarg):
-        context = {
-            
-        }
-        return render(request, '.html', context, )
+        id = self.kwargs['pk']
+        orders = HelperApp.get_order(request)
+        orders = [order for order in orders if order["id"] != id]
+        HelperApp.update_order_in_session(request, orders)
+        return redirect('receipts:pay')
 
 class ClearCart(View):
     def get(self, request, *args, **kwarg):
-        context = {
-            
-        }
-        return render(request, '.html', context, )
+        request.session.pop('orders')
+        request.session.pop('total')
+        return redirect('home')
 

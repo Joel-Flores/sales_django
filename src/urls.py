@@ -25,5 +25,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('product/', include('product.urls'), name='product'),
     path('sales/', include('sales.urls'), name='sales'),
-    path('receipts', include('receipts.urls'), name='receipts'),
+    path('receipts/', include('receipts.urls'), name='receipts'),
 ]

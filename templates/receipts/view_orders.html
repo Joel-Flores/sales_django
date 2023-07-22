@@ -1,0 +1,59 @@
+{% if orders %}
+<table>
+    <thead>
+        <tr>
+            <td>
+                product
+            </td>
+            <td>
+                count
+            </td>
+            <td>
+                price
+            </td>
+            <td>
+                total
+            </td>
+            <td>options</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>
+                {{order.name}}
+            </td>
+            <td>
+                {{order.count}}
+            </td>
+            <td>
+                {{order.price}}Bs
+            </td>
+            <td>
+                {{order.total}}Bs
+            </td>
+            <td>
+                <a href="{% url 'sales:delete_order' order.id %}">eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td>{{total}}</td>
+            <td>
+                <a href="{% url 'sales:clear_cart' %}">limpiar carrito</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">submit</button>
+</form>
+{% else%}
+<p>no hay ordenes en el carrito</p>
+<a href="{% url 'home' %}">volver al inicio</a>
+{% endif %}

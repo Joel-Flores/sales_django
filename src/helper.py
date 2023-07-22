@@ -164,3 +164,6 @@ class HelperApp():
         """
         orders = HelperApp.get_order()
         return [order for order in orders if order["id"] != id]
+    
+    def get_total(request) -> int:
+        return request.session.get('total')
