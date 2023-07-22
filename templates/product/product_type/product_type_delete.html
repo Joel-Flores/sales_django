@@ -1,0 +1,6 @@
+<form method="POST">
+    {% csrf_token %}
+    <p>elminimar el tipo de producto producto {{ object.name }}?</p>
+    <button type="submit">si, eliminiar</button>
+    <a href="{% url 'product:product_type_read' %}">cancelar</a>
+</form>

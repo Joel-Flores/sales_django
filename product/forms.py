@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import ProductName
+from .models import ProductType
 
 class ProductNameForm(forms.ModelForm):
     class Meta:
@@ -14,4 +15,14 @@ class ProductNameForm(forms.ModelForm):
             'name' : 'nombre del producto',
             'price' : 'precio del producto',
             'type' : 'tipo de producto'
+        }
+
+class ProductTypeForm(forms.ModelForm):
+    class Meta:
+        model = ProductType
+        fields = [
+            'name',
+        ]
+        labels = {
+            'name' : 'nombre del type de producto',
         }
