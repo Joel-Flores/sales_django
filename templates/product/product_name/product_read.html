@@ -22,13 +22,13 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{product.type }}</td>
-                <td><a href="{% url 'sale:update' product.id %}">editar</a></td>
-                <td><a href="{% url 'sale:delete' product.id %}">eliminar</a></td>
+                <td><a href="{% url 'product:product_update' product.id %}">editar</a></td>
+                <td><a href="{% url 'product:product_delete' product.id %}">eliminar</a></td>
             </tr>
             {% endfor %}
             {% endif %}
         </tbody>
     </table>
-    <a href="{% url 'sale:create' %}">crear nuevo producto</a>
+    <a href="{% url 'product:product_create' %}">crear nuevo producto</a>
 </body>
 </html>
