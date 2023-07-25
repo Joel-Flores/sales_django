@@ -1,3 +1,7 @@
+from src.helper import HelperApp
+from product.helper import HelperProduct
+from .models import Sales
+
 class HelperSale():
     def search_in_list(product_name : str, all_data : list):
         """
@@ -39,5 +43,16 @@ class HelperSale():
             (data for data in all_data if data.name == product_name)
             , None
         )
-    def save_order_in_session():
-        orders = ''
+    def save_sales_receipts(request, receipt):
+        orders = HelperApp.get_order(request)
+        for order in orders:
+            product = HelperProduct.get_product(order['id'])
+            new_sale = Sales(
+                receipt = receipt,
+                product = product,
+                count = int(order['count']),
+                price = order['price'],
+                price_total = order['total']
+            )
+            new_sale.save()
+        return orders

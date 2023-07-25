@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from .models import ProductName
 
 class HelperProduct():
@@ -13,3 +14,6 @@ class HelperProduct():
                                 relacionados con el ProductType especificado por type_id.
         """
         return ProductName.objects.filter(type__id= type_id)
+    
+    def get_product(id : int) -> type[ProductName]:
+        return ProductName.objects.get(id=id)

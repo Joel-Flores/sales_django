@@ -1,3 +1,6 @@
+from fpdf import FPDF
+from dataclasses import dataclass
+
 class HelperApp():
     def get_order(request) -> list:
         """
@@ -167,3 +170,4 @@ class HelperApp():
     
     def get_total(request) -> int:
         return request.session.get('total')
+    
