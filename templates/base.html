@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{%block title%}{{'lucilas'}} |{%endblock%}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/tailwind.output.css' %}"/>
+    <link type="text/css" rel="stylesheet" charset="UTF-8" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chart.min.css' %}">
+    <script src="{% static 'js/chart.min.js' %}"></script>
+    <script src="{% static 'js/alpine.min.js' %}" defer></script>
+    <script src="{% static 'js/init-alpine.js'%}"></script>
+    <script src="{% static 'js/charts-lines.js' %}"></script>
+    <script src="{% static 'js/charts-pie.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+  
+  
+  {%block body%}  {%endblock%}
+  
+  </body>
+</html>

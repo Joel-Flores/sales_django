@@ -31,6 +31,11 @@ def form_add_cart_to_products(products : list[ProductName], form = None) -> type
             label='Cantidad del producto',
             initial=0,
             min_value = 0,
+            widget=forms.NumberInput(
+                attrs={
+                'class': 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
+                }
+            )
         )
 
     # Devuelve la clase FormOption personalizada

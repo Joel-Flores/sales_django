@@ -32,7 +32,10 @@ class AddCart(View):
         
         orders = HelperApp.get_order(request)
         for product_name, count in form.data.items():
-            if count is None or count == 0:
+            try:
+                if int(count) == 0:
+                    continue
+            except ValueError:
                 continue
         
             product_data = HelperSale.search_in_list(product_name, products)

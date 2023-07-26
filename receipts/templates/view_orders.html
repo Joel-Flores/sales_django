@@ -1,60 +1,53 @@
+{% extends 'home.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
+
+{% block main %}
+
 {% if orders %}
-<table>
-    <thead>
-        <tr>
-            <td>
-                product
-            </td>
-            <td>
-                count
-            </td>
-            <td>
-                price
-            </td>
-            <td>
-                total
-            </td>
-            <td>options</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for order in orders %}
-        <tr>
-            <td>
-                {{order.name}}
-            </td>
-            <td>
-                {{order.count}}
-            </td>
-            <td>
-                {{order.price}}Bs
-            </td>
-            <td>
-                {{order.total}}Bs
-            </td>
-            <td>
-                <a href="{% url 'sales:delete_order' order.id %}">eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td>Total</td>
-            <td></td>
-            <td></td>
-            <td>{{total}}</td>
-            <td>
-                <a href="{% url 'sales:clear_cart' %}">limpiar carrito</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<form method="POST">
-    {% csrf_token %}
-    {{ form_client.as_p }}
-    {{ form_received.as_p }}
-    <button type="submit">submit</button>
-</form>
+{% render_title 'Datos del recibo' %}
+<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-x-auto">
+      <table class="w-full whitespace-no-wrap">
+        <thead>
+            {% render_thead '["Producto", "Cantidad", "Precio unitario", "Precio total", "Eliminar"]' %}
+        </thead>
+        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            {% render_tbody orders %}
+            <tr class="text-gray-700 dark:text-gray-400">
+                <td class="px-4 py-3 text-sm">Total de compra</td>
+                <td class="px-4 py-3 text-sm">_</td>
+                <td class="px-4 py-3 text-sm">_</td>
+                <td class="px-4 py-3 text-sm">{{total}} Bs</td>
+                <td class="px-4 py-3 text-xs">
+                    <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                        <a href="{% url 'sales:clear_cart' %}">Eliminar</a>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+{% render_title 'Datos del cliente' %}
+<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <form method="POST">
+        {% csrf_token %}
+        {% render_input form_client.name %}
+        {% render_input form_client.nit %}
+        {% render_input form_received.received %}
+        {% render_button_form 'Imprimir Orden' %}
+    </form>
+</div>
+
 {% else%}
-<p>no hay ordenes en el carrito</p>
-<a href="{% url 'home' %}">volver al inicio</a>
+{% render_title 'No hay ordenes en el carrito' %}
+{% render_button 'Volvel al inicio' 'home' %}
 {% endif %}
+
+{% endblock %}

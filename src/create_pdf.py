@@ -49,7 +49,7 @@ class CreatePdf():
                 # Select Courier bold 7
                 self.set_font('Courier', '', 8)
                 self.set_margins(5, 20, 5)
-                self.image('image.jpg', x=12, y=2, w=55, h=18.5)
+                self.image('static/img/image.jpg', x=12, y=2, w=55, h=18.5)
                 # Framed title
                 self.cell(w=0, h=3,txt='Direccion: Av. Tupac Katari y 18 chuita'.upper(),border=0, align='C',ln=True)
                 self.cell(w=0, h=3,txt='Tel:777-777-77'.upper(),border=0, align='C',ln=True)

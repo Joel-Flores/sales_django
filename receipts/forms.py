@@ -14,8 +14,18 @@ class FormClient(forms.ModelForm):
         }
         widgets = {
             'nit': forms.NumberInput(
-                attrs={'value': '0'}
+                attrs={
+                    'value': '0',
+                    'class': 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                    'placeholder': 'Ingrese el nit del cliente'
+                }
             ),
+            'name' : forms.TextInput(
+                attrs={
+                    'class': 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                    'placeholder': 'Ingrese el nombre del cliente'
+                }
+            )
         }
 
 class FormReceipt(forms.ModelForm):
@@ -27,4 +37,11 @@ class FormReceipt(forms.ModelForm):
         labels = {
             'received' : 'ingrese monto que pago el cliente'
         }
-    
+        widgets = {
+            'received': forms.TextInput(
+                attrs={
+                    'class': 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+                    'placeholder': 'Ingrese el pago en Bs'
+                }
+            ),
+        }

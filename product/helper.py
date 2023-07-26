@@ -1,5 +1,10 @@
 from django.shortcuts import get_object_or_404
 from .models import ProductName
+from .models import ProductType
+
+class HelperTypeProduct():
+    def get_type_products():
+        return ProductType.objects.all()
 
 class HelperProduct():
     def get_products_filter_type(type_id : int) -> list[ProductName]:
@@ -16,4 +21,10 @@ class HelperProduct():
         return ProductName.objects.filter(type__id= type_id)
     
     def get_product(id : int) -> type[ProductName]:
+        '''  '''
         return ProductName.objects.get(id=id)
+    
+    def get_product_name(name : str) -> type[ProductName]:
+        '''  '''
+        return ProductName.objects.get(name=name)
+ 

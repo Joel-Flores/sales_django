@@ -1,0 +1,13 @@
+{% load render_button%}
+<div class="py-4 text-gray-500 dark:text-gray-400">
+  <strong class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200">
+    {{'aplicacion de trabajo'}}
+  </strong>
+  <ul class="mt-6">
+    {% render_li "Agregar comida" "sales:add_food" 1 %}
+    {% render_li "Agregar refrescos" "sales:add_soda" 2 %}
+  </ul>
+  <div class="px-6 my-6">
+    {% render_button "Pagar Orden" "receipts:pay" %}
+  </div>
+</div>
