@@ -1,0 +1,16 @@
+{% if not messages %}
+{% for message in products %}
+<div id="alert_{{ forloop.counter }}" class="z-10 py-4 bg-white shadow-md dark:bg-gray-800 border relative text-center rounded-full" role="alert">
+    <strong class="text-gray-800 dark:text-gray-200">¡Éxito! este es un mensaje</strong>
+</div>
+<script>
+    setTimeout(function() {
+    document.getElementById(
+        "alert_{{ forloop.counter }}"
+        ).style.display = "none";
+    }, 
+    3000 * {{ forloop.counter }}
+    );      
+</script>
+{% endfor %}
+{% endif %}

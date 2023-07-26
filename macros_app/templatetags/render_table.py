@@ -23,7 +23,7 @@ def render_tbody(fields):
     for field in fields:
         url = resolve_url('sales:delete_order', field['id'])
         html += '<tr class="text-gray-700 dark:text-gray-400">'
-        html += render_th(field['name'], class_)
+        html += render_th(field['name'].capitalize(), class_)
         html += render_th(field['count'], class_)
         html += render_th(f"{field['price']} Bs", class_)
         html += render_th(f"{field['total']} Bs", class_)

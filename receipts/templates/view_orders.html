@@ -20,10 +20,10 @@
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             {% render_tbody orders %}
             <tr class="text-gray-700 dark:text-gray-400">
-                <td class="px-4 py-3 text-sm">Total de compra</td>
-                <td class="px-4 py-3 text-sm">_</td>
-                <td class="px-4 py-3 text-sm">_</td>
-                <td class="px-4 py-3 text-sm">{{total}} Bs</td>
+                <th class="px-4 py-3 text-sm">Total de compra</th>
+                <th class="px-4 py-3 text-sm"></th>
+                <th class="px-4 py-3 text-sm"></th>
+                <th class="px-4 py-3 text-sm">{{total}} Bs</th>
                 <td class="px-4 py-3 text-xs">
                     <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
                         <a href="{% url 'sales:clear_cart' %}">Eliminar</a>
