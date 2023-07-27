@@ -18,7 +18,7 @@ class AddCart(View):
             'products' : products,
             'form' : form
         }
-        return render(request, 'addtocart.html', context, )
+        return render(request, 'sales/addtocart.html', context, )
     
     def post(self, request, *args, **kwarg):
         id = self.kwargs['pk']
@@ -29,7 +29,7 @@ class AddCart(View):
                 'products' : products,
                 'form' : form
             }
-            return render(request, 'addtocart.html', context, )
+            return render(request, 'sales/addtocart.html', context, )
         
         orders = HelperApp.get_order(request)
         for product_name, count in form.data.items():

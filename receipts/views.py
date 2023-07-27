@@ -27,7 +27,7 @@ class PayOrder(View):
             'orders' : orders,
             'total' : total
         }
-        return render(request, 'view_orders.html', context, )
+        return render(request, 'receipts/view_orders.html', context, )
     
     def post(self, request, *args, **kwarg):
         form_client = FormClient(request.POST)

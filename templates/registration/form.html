@@ -1,0 +1,25 @@
+{% load render_form %}
+{% load render_button %}
+
+<form method="POST">
+  {% csrf_token %}
+  {% render_input form.username %}
+  {% if form.username.errors %}
+  <ul>
+    {% for error in form.username.errors %}
+    {% render_error error %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% render_input form.password %}
+  {% if form.password.errors %}
+  <ul>
+    {% for error in form.password.errors %}
+    {% render_error error %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% render_button_form 'Iniciar session' %}
+</form> 

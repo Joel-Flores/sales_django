@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+
+{%load render_text %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title %}  register {%endblock%}
+
+{% block body %}
+<div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+  <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
+    <div class="flex flex-col overflow-y-auto md:flex-row">
+      {% include 'registration/image.html' %}
+      <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+        <div class="w-full">
+          {% render_title 'Register'%}
+          <form method="POST">
+            {% csrf_token %}
+            {% render_input form.username %}
+            {% if form.username.errors %}
+            <ul>
+              {% for error in form.username.errors %}
+              {% render_error error %}
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% render_input form.password1 %}
+            {% if form.password1.errors %}
+            <ul>
+              {% for error in form.password1.errors %}
+              {% render_error error %}
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% render_input form.password2 %}
+            {% if form.password2.errors %}
+            <ul>
+              {% for error in form.password2.errors %}
+              {% render_error error %}
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% render_input form.first_name %}
+            {% if form.first_name.errors %}
+            <ul>
+              {% for error in form.first_name.errors %}
+              {% render_error error %}
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% render_input form.last_name %}
+            {% if form.last_name.errors %}
+            <ul>
+              {% for error in form.last_name.errors %}
+              {% render_error error %}
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% render_button_form 'Nuevo Usuario' %}
+          </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

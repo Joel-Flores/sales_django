@@ -39,20 +39,20 @@ class ProductTypeDelete(DeleteView):
 class ProductCreate(CreateView):
     model = ProductName
     form_class = ProductNameForm
-    template_name = 'table_product_name/product_form.html'
+    template_name = 'product/table_product_name/product_form.html'
     success_url = reverse_lazy('product:product_read')
 
 class ProductRead(ListView):
     model = ProductName
-    template_name = 'table_product_name/product_read.html'
+    template_name = 'product/table_product_name/product_read.html'
 
 class ProductUpdate(UpdateView):
     model = ProductName
     form_class = ProductNameForm
-    template_name = 'name_product_name/product_form.html'
+    template_name = 'product/name_product_name/product_form.html'
     success_url = reverse_lazy('product:product_read')
 
 class ProductDelete(DeleteView):
     model = ProductName
-    template_name = 'name_product_name/product_delete.html'
+    template_name = 'product/name_product_name/product_delete.html'
     success_url = reverse_lazy('product:product_read')
