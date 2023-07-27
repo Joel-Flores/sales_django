@@ -31,3 +31,6 @@ class HelperReceipts():
         )
         receipt.save()
         return receipt
+    
+    def search_receipt(id : int) -> type[Receipts]:
+        return Receipts.objects.get(id = id)

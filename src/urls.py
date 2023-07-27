@@ -18,11 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
-from .views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
+    path('', include('home.urls'), name='home'),
     path('product/', include('product.urls'), name='product'),
     path('sales/', include('sales.urls'), name='sales'),
     path('receipts/', include('receipts.urls'), name='receipts'),

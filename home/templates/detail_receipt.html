@@ -1,0 +1,51 @@
+{% extends 'home.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
+
+{% block main %}
+
+{% render_title 'Datos del recibo' %}
+<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-x-auto">
+      <table class="w-full whitespace-no-wrap">
+        <thead>
+            {% render_thead '["Codigo del recibo", "Cliente", "Venta total", "Recivido", "Cambio"]' %}
+        </thead>
+        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+          <tr class="text-gray-700 dark:text-gray-400">
+            {% render_th receipts.0.receipt.id 'px-4 py-3 text-sm' %} 
+            {% render_th receipts.0.receipt.client.name 'px-4 py-3 text-sm' %}
+            {% render_th receipts.0.receipt.sale_total 'px-4 py-3 text-sm' %}
+            {% render_th receipts.0.receipt.received 'px-4 py-3 text-sm' %}
+            {% render_th receipts.0.receipt.change 'px-4 py-3 text-sm' %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+  <div class="w-full overflow-x-auto">
+    <table class="w-full whitespace-no-wrap">
+      <thead>
+          {% render_thead '["Producto", "Cantidad", "Precio", "Precio total"]' %}
+      </thead>
+      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">  
+          {% for receipt in receipts%}
+          <tr class="text-gray-700 dark:text-gray-400">
+            {% render_th receipt.product.name 'px-4 py-3 text-sm' %} 
+            {% render_th receipt.count 'px-4 py-3 text-sm' %}
+            {% render_th receipt.price 'px-4 py-3 text-sm' %}
+            {% render_th receipt.price_total 'px-4 py-3 text-sm' %}
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% render_button 'Volvel al inicio' 'home:home' %}
+{% endblock %}

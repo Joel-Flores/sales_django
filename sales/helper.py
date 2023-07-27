@@ -1,3 +1,8 @@
+from datetime import datetime
+from datetime import date
+
+from django.db.models import Sum
+
 from src.helper import HelperApp
 from product.helper import HelperProduct
 from .models import Sales
@@ -43,6 +48,7 @@ class HelperSale():
             (data for data in all_data if data.name == product_name)
             , None
         )
+        
     def save_sales_receipts(request, receipt):
         orders = HelperApp.get_order(request)
         for order in orders:
@@ -56,3 +62,13 @@ class HelperSale():
             )
             new_sale.save()
         return orders
+    
+    def search_sales(receipt):
+        return Sales.objects.filter(receipt = receipt)
+    
+    def sales_today():
+        today = date.today()
+        sales_today = Sales.objects.filter(create__date=today)
+        total_count_today = sales_today.aggregate(Sum('count'))['count__sum']
+        total_price_today = sales_today.aggregate(Sum('price_total'))['price_total__sum']
+        return sales_today, total_count_today, total_price_today

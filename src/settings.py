@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'src',
+    'home',
     'macros_app',
     'product',
     'receipts',

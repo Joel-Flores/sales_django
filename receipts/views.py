@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib import messages
 from django.views import View
 
 from src.create_pdf import CreatePdf
@@ -48,4 +49,6 @@ class PayOrder(View):
             received = HelperReceipts.save_receipt(request, form_received, client)
             sales_received = HelperSale.save_sales_receipts(request, received)
             CreatePdf.create_pdf(received, sales_received, client)
+            messages.success(request, 'Venta guardada exitosamente')
+            messages.success(request, 'Se mando a imprimir el ticket')
         return redirect('sales:clear_cart')

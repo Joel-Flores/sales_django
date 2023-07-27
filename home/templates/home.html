@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Home{% endblock %}
+{% block body %}
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+  {% include 'backdrop.html'%}
+  <div class="flex flex-col flex-1">
+    {% include 'header.html' %}
+    <main class="h-full pb-16 overflow-y-auto">
+      <div class="container px-6 mx-auto grid">
+        {% include 'messages.html' %}
+        {% block main %}
+        {% render_title 'Buscar recibo' %}
+        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <form method="POST">
+            {% csrf_token %}
+            {% render_input form.sale_total %}
+            {% render_button_form 'Buscar recibo' %}
+          </form>
+        </div>
+        {% render_title 'Ventas del dia' %}
+        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div class="w-full overflow-x-auto">
+            <table class="w-full whitespace-no-wrap">
+              <thead>
+                {% render_thead '["cantidad ventas", "total ganado"]'%}
+              </thead>
+              <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                <tr class="text-gray-700 dark:text-gray-400">
+                  {% render_th total_count 'px-4 py-3 text-sm' %} 
+                  {% render_th total_sale 'px-4 py-3 text-sm' %}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {% render_title 'clientes atendidos por recibos' %}
+        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div class="w-full overflow-x-auto">
+            <table class="w-full whitespace-no-wrap">
+              <thead>
+                {% render_thead '["cod_recibo", "Productos vendidos", "cantidad", "total"]'%}
+              </thead>
+              <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                {% for sale in sales_today%}
+                <tr class="text-gray-700 dark:text-gray-400">
+                  {% render_th sale.receipt.id 'px-4 py-3 text-sm' %} 
+                  {% render_th sale.product 'px-4 py-3 text-sm' %}
+                  {% render_th sale.count 'px-4 py-3 text-sm' %}
+                  {% render_th sale.price_total 'px-4 py-3 text-sm' %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {% endblock %}
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}
