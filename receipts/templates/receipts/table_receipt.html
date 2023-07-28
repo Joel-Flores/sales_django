@@ -1,0 +1,52 @@
+{% extends 'home/home_admin.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
+
+{% block main %}
+{% render_title 'filtar los recibos por fecha'%}
+
+<form method="get" action="{% url 'receipts:receipt_read' %}">
+    {% csrf_token %}
+    {% render_input form.fecha %}
+    {% render_button_form 'Filtar recibos'%}
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>Id recibo</td>
+            <td>Venta total</td>
+            <td>Recibido</td>
+            <td>Cambio</td>
+            <td>Cliente</td>
+            <td>Fecha</td>
+            <td>Recibo completo</td>
+            <td>eliminar</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if object_list %}
+        {% for receipts in object_list %}
+        <tr>
+            <td>{{receipts.id }}</td>
+            <td>{{ receipts.sale_total }} Bs</td>
+            <td>{{ receipts.received }} Bs</td>
+            <td>{{receipts.change }} Bs</td>
+            <td>{{receipts.client.name }}</td>
+            <td>{{receipts.create}}</td>
+            <td><a href="{% url 'receipts:receipt_all' receipts.id %}">Ver recibo total</a></td>
+            <td><a href="{% url 'receipts:receipt_delete' receipts.id %}">eliminar</a></td>
+            
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+<br>
+<a href="{% url 'home:super_admin' %}">volver al inicio</a>
+{% endblock %}

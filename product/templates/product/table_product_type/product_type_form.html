@@ -1,9 +1,17 @@
+{% extends 'home/home_admin.html' %}
 
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
+
+{% block main %}
 <h1>create</h1>
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">submit</button>
 </form>
-
-
+{% endblock %}

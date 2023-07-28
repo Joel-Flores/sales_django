@@ -1,3 +1,13 @@
+{% extends 'home/home_admin.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
+
+{% block main %}
 <table>
     <thead>
         <tr>
@@ -19,4 +29,5 @@
 </table>
 <a href="{% url 'product:product_type_create' %}">crear nuevo tipo producto</a>
 <br>
-<a href="{% url 'home' %}">volver al inicio</a>
+<a href="{% url 'home:super_admin' %}">volver al inicio</a>
+{% endblock %}

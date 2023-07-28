@@ -11,4 +11,10 @@
   <div class="px-6 my-6">
     {% render_button "Pagar Orden" "receipts:pay" %}
   </div>
+  
+  {% if user.is_staff  %}
+  <div class="px-6 my-6">
+    {% render_button "Administrador" "home:super_admin" %}
+  </div>
+  {% endif %}
 </div>

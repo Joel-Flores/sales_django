@@ -1,0 +1,14 @@
+{% load render_button%}
+<div class="py-4 text-gray-500 dark:text-gray-400">
+  <strong class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200">
+    {{user.first_name.capitalize}} {{user.last_name.capitalize}}
+  </strong>
+  <ul class="mt-6">
+    {% render_li "Administrar productos" "product:product_read" %}
+    {% render_li "Administrar tipo productos" "product:product_type_read" %}
+    {% render_li "Administrar recibos" "receipts:receipt_read" %}
+  </ul>
+  <div class="px-6 my-6">
+    {% render_button "Salir administrador" "home:home" %}
+  </div>
+</div>

@@ -1,6 +1,17 @@
+{% extends 'home/home_admin.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
+
+{% block main %}
 <form method="POST">
     {% csrf_token %}
     <p>elminimar el producto {{ object.name }}?</p>
     <button type="submit">si, eliminiar</button>
     <a href="{% url 'product:product_read' %}">cancelar</a>
 </form>
+{% endblock %}

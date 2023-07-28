@@ -59,7 +59,14 @@ class HomeView(View):
         
         receipt_all = HelperHome.get_receipt(form)
         context = {
-            'form' : form,
             'receipts' : receipt_all,
         }
-        return render(request, 'hoem/detail_receipt.html', context)
+        return render(request, 'home/detail_receipt.html', context)
+    
+class HomeAdminView(View):
+    def get(self, request, *args, **kwarg):
+        
+        context = {
+            
+        }
+        return render(request, 'home/home_admin.html', context)

@@ -1,17 +1,27 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib import messages
-from django.views import View
 
-from src.create_pdf import CreatePdf
-from src.helper import HelperApp
-from sales.helper import HelperSale
+from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
+
+from django.views import View
+from django.views.generic import ListView
+from django.views.generic import DeleteView
+
+from django.urls import reverse_lazy
+
+from .forms import FormClient
+from .forms import FormReceipt
+from .forms import FormReceiptFilter
+
+from .models import Receipts
 
 from .helper import HelperClients
 from .helper import HelperReceipts
 
-from .forms import FormClient
-from .forms import FormReceipt
+from src.create_pdf import CreatePdf
+from src.helper import HelperApp
+from sales.helper import HelperSale
 
 # Create your views here.
 class PayOrder(View):
@@ -52,3 +62,52 @@ class PayOrder(View):
             messages.success(request, 'Venta guardada exitosamente')
             messages.success(request, 'Se mando a imprimir el ticket')
         return redirect('sales:clear_cart')
+    
+#Crud receipts
+class ReceiptRead(UserPassesTestMixin, ListView):
+    model = Receipts
+    template_name = 'receipts/table_receipt.html'
+    form_class = FormReceiptFilter
+    
+    def test_func(self):
+        return self.request.user.is_staff
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = self.form_class(self.request.GET)
+
+        if form.is_valid():
+            fecha = form.cleaned_data['fecha']
+            # Filtrar los objetos según la fecha proporcionada
+            queryset = queryset.filter(create__date=fecha)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class(self.request.GET)
+        return context
+
+class ReceiptAllView(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_staff
+    
+    def get(self, request, *args, **kwarg):
+        receipt_id = self.kwargs['pk']
+        receipt_all = HelperReceipts.get_receipt_all(receipt_id)
+        context = {
+            'receipts' : receipt_all,
+        }
+        return render(request, 'receipts/table_receipt_all.html', context)
+
+class ReceiptDelete(UserPassesTestMixin, DeleteView):
+    model = Receipts
+    template_name = 'receipts/receipt_delete.html'
+    success_url = reverse_lazy('receipts:receipt_read')
+    
+    def test_func(self):
+        return self.request.user.is_staff
+    
+    def post(self, request, *args, **kwargs):
+        messages.success(self.request, 'Recibo eliminado exitosamente.')
+        return super().post(request, *args, **kwargs)

@@ -45,3 +45,13 @@ class FormReceipt(forms.ModelForm):
                 }
             ),
         }
+
+class FormReceiptFilter(forms.Form):
+    fecha = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                'class': 'block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
+            }
+        )
+    )

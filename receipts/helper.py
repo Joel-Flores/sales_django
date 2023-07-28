@@ -1,6 +1,7 @@
 from .models import Clients
 from .models import Receipts
 from src.helper import HelperApp
+from sales.helper import HelperSale
 
 class HelperClients():
     def search_client(form):
@@ -34,3 +35,8 @@ class HelperReceipts():
     
     def search_receipt(id : int) -> type[Receipts]:
         return Receipts.objects.get(id = id)
+    
+    def get_receipt_all(id):
+        receipt = HelperReceipts.search_receipt(id)
+        sales = HelperSale.search_sales(receipt)
+        return sales

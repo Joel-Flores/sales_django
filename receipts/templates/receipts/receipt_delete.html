@@ -8,10 +8,10 @@
 {% block title%}{{ block.super }} Ordenes del pedido{% endblock %}
 
 {% block main %}
-<h1>create</h1>
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">submit</button>
+    <p>elminimar el Recibo {{ object.id }}?</p>
+    <button type="submit">si, eliminiar</button>
+    <a href="{% url 'receipts:receipt_read' %}">cancelar</a>
 </form>
 {% endblock %}

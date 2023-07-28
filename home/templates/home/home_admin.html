@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+{% load render_text %}
+{% load render_table %}
+{% load render_form %}
+{% load render_button %}
+
+{% block title%}{{ block.super }} Home{% endblock %}
+{% block body %}
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+  {% include 'base_admin/backdrop.html'%}
+  <div class="flex flex-col flex-1">
+    {% include 'base/header.html' %}
+    <main class="h-full pb-16 overflow-y-auto">
+      <div class="container px-6 mx-auto grid">
+        {% include 'base/messages.html' %}
+        {% block main %}
+        
+        {% endblock %}
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}
